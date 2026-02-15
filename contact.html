@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Réservez au Terrier — Bar à cocktails & tapas près de Nîmes. Horaires, accès, formulaire de réservation et contact.">
+<meta name="theme-color" content="#120205">
+<title>Contact & Réservation — Le Terrier · Bar à Cocktails & Tapas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Josefin+Sans:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+/* ════ PAGE-SPECIFIC: CONTACT ════ */
+
+/* ── Info columns ── */
+.i-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; text-align: center;
+}
+.i-col h3 {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 600;
+  color: var(--or); margin-bottom: .7rem;
+}
+.i-col p {
+  font-family: var(--font-body); font-size: .98rem; font-weight: 300;
+  color: var(--creme-70); line-height: 1.9;
+}
+.i-col a { color: var(--or); transition: color .3s; }
+.i-col a:hover { color: var(--or-light); }
+
+@media (max-width: 700px) { .i-cols { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+/* ── Form ── */
+.form-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  max-width: 700px; margin: 0 auto;
+}
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-family: var(--font-ui); font-size: .48rem; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--or); margin-bottom: .5rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-body); font-size: .95rem; font-weight: 300;
+  color: var(--creme); background: rgba(245,240,232,.03);
+  border: 1px solid var(--creme-10); padding: .8rem 1rem;
+  transition: border-color .3s, background .3s;
+  outline: none; appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--or); background: rgba(200,164,92,.03);
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--creme-20); font-style: italic;
+}
+.form-group select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23C8A45C'%3E%3Cpath d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+.form-group select option {
+  background: var(--void); color: var(--creme);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+.form-note {
+  font-family: var(--font-body); font-size: .82rem; font-weight: 300;
+  font-style: italic; color: var(--creme-20); text-align: center;
+  margin-top: .8rem;
+}
+
+.form-submit {
+  grid-column: 1 / -1; text-align: center; margin-top: .5rem;
+}
+
+.form-success {
+  display: none; text-align: center; padding: 2rem;
+  border: 1px solid var(--or-line); background: var(--or-005);
+}
+.form-success.show { display: block; }
+.form-success h3 {
+  font-family: var(--font-display); font-size: 1.3rem; font-weight: 600;
+  color: var(--or); margin-bottom: .5rem;
+}
+.form-success p {
+  font-family: var(--font-body); font-size: .95rem; font-weight: 300;
+  color: var(--creme-70); line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Map ── */
+.map-container {
+  width: 100%; height: 350px; border: 1px solid var(--or-line);
+  background: var(--bordeaux-dark);
+  display: flex; align-items: center; justify-content: center;
+}
+.map-placeholder {
+  font-family: var(--font-body); font-size: .95rem; font-weight: 300;
+  font-style: italic; color: var(--creme-20); text-align: center;
+  padding: 2rem;
+}
+.map-placeholder a { color: var(--or); }
+
+/* ── FAQ ── */
+.faq-list { max-width: 700px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid var(--creme-05);
+}
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.2rem 0; cursor: pointer; gap: 1rem;
+  transition: padding-left .3s var(--ease-out);
+}
+.faq-q:hover { padding-left: .3rem; }
+.faq-q h3 {
+  font-family: var(--font-display); font-size: 1rem; font-weight: 500;
+  color: var(--creme); flex: 1;
+}
+.faq-toggle {
+  font-family: var(--font-ui); font-size: .8rem; color: var(--or);
+  transition: transform .3s var(--ease-out); flex-shrink: 0;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height .5s var(--ease-out), padding .4s;
+}
+.faq-item.open .faq-a { max-height: 200px; }
+.faq-a p {
+  font-family: var(--font-body); font-size: .92rem; font-weight: 300;
+  color: var(--creme-40); line-height: 1.8; padding-bottom: 1.2rem;
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="atmosphere"></canvas>
+
+<div class="announcement" id="announcement">
+  <p>Ouverture prochainement — Suivez-nous sur <a href="#">Instagram</a> pour la date</p>
+  <button class="ann-close" id="annClose" aria-label="Fermer">✕</button>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="n-brand">Le Terrier</a>
+  <ul class="n-links" id="menu">
+    <li><a href="concept.html">Le Concept</a></li>
+    <li><a href="carte.html">La Carte</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="galerie.html">Galerie</a></li>
+    <li><a href="contact.html" class="n-cta active">Réserver</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <p class="h-pre">Nous trouver</p>
+  <h1 class="h-title">Contact</h1>
+  <div class="h-deco"><span class="h-deco-l"></span><span class="h-deco-d"></span><span class="h-deco-r"></span></div>
+  <p class="h-tag">Réservation, informations, privatisation — on vous répond</p>
+</section>
+
+<!-- INFOS PRATIQUES -->
+<section class="s" style="background:linear-gradient(var(--void),var(--bordeaux-dark),var(--void))">
+  <div class="s-in">
+    <div class="s-eye" data-r>Infos Pratiques</div>
+    <h2 class="s-h" data-r="1">Nous Trouver</h2>
+    <div class="sep" data-r="2"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+
+    <div class="i-cols" data-r="3">
+      <div class="i-col">
+        <h3>Horaires</h3>
+        <p>Mercredi au Dimanche<br>17h – 00h<br><br><em>Fermé lundi et mardi</em></p>
+      </div>
+      <div class="i-col">
+        <h3>Adresse</h3>
+        <p>Près de Codognan<br>30 — Gard<br><br>À 15 minutes de Nîmes<br><a href="#">Itinéraire GPS →</a></p>
+      </div>
+      <div class="i-col">
+        <h3>Contact</h3>
+        <p><a href="#">@leterrier.bar</a><br><br>Réservation conseillée<br>pour le rez-de-chaussée</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARTE GOOGLE MAPS
+     ══════════════════════
+     Remplacer le placeholder par un embed Google Maps :
+     <iframe src="https://www.google.com/maps/embed?pb=VOTRE_CODE"
+       width="100%" height="350" style="border:0" allowfullscreen
+       loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+     ══════════════════════ -->
+<section class="s" style="background:var(--void);padding-top:0;padding-bottom:3rem">
+  <div class="s-in" style="max-width:1100px">
+    <div class="map-container" data-r>
+      <div class="map-placeholder">
+        <p>Carte Google Maps<br><br>
+        <a href="#">Ouvrir dans Google Maps →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULAIRE DE RÉSERVATION / CONTACT -->
+<section class="s" style="background:var(--void)">
+  <div class="s-in">
+    <div class="s-eye" data-r>Réservation & Messages</div>
+    <h2 class="s-h" data-r="1">Contactez-nous</h2>
+    <p class="s-sub" data-r="2">Réservation, question, privatisation — on vous répond rapidement</p>
+    <div class="sep" data-r="2"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+
+    <form class="form-grid" id="contactForm" data-r="3">
+      <div class="form-group">
+        <label for="fname">Prénom</label>
+        <input type="text" id="fname" name="fname" placeholder="Votre prénom" required>
+      </div>
+      <div class="form-group">
+        <label for="lname">Nom</label>
+        <input type="text" id="lname" name="lname" placeholder="Votre nom" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input type="tel" id="phone" name="phone" placeholder="06 XX XX XX XX">
+      </div>
+      <div class="form-group">
+        <label for="type">Motif</label>
+        <select id="type" name="type" required>
+          <option value="" disabled selected>Choisir...</option>
+          <option value="reservation">Réservation (RDC)</option>
+          <option value="info">Demande d'information</option>
+          <option value="privatisation">Privatisation / Événement</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="date">Date souhaitée</label>
+        <input type="date" id="date" name="date">
+      </div>
+      <div class="form-group">
+        <label for="guests">Nombre de personnes</label>
+        <select id="guests" name="guests">
+          <option value="" disabled selected>Choisir...</option>
+          <option value="1">1 personne</option>
+          <option value="2">2 personnes</option>
+          <option value="3">3 personnes</option>
+          <option value="4">4 personnes</option>
+          <option value="5">5 personnes</option>
+          <option value="6">6 personnes</option>
+          <option value="7+">7 ou plus</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="espace">Espace</label>
+        <select id="espace" name="espace">
+          <option value="" disabled selected>Choisir...</option>
+          <option value="rdc">Rez-de-chaussée (réservation)</option>
+          <option value="etage">Étage (sans réservation)</option>
+          <option value="les-deux">Les deux / Pas de préférence</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Votre message, demande spéciale, allergies..."></textarea>
+      </div>
+      <div class="form-submit">
+        <button type="submit" class="btn">Envoyer</button>
+      </div>
+    </form>
+
+    <p class="form-note" data-r="4">
+      La réservation est confirmée par retour d'email ou Instagram.<br>
+      L'étage fonctionne sans réservation — venez quand vous voulez !
+    </p>
+
+    <!-- Message de succès -->
+    <div class="form-success" id="formSuccess">
+      <h3>Message envoyé !</h3>
+      <p>Merci pour votre message. On vous répond très vite — généralement dans la journée.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="s" style="background:linear-gradient(var(--void),var(--bordeaux-dark),var(--void))">
+  <div class="s-in">
+    <div class="s-eye" data-r>Questions fréquentes</div>
+    <h2 class="s-h" data-r="1">FAQ</h2>
+    <div class="sep" data-r="2"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+
+    <div class="faq-list" data-r="3">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <div class="faq-q"><h3>Faut-il réserver ?</h3><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>La réservation est conseillée pour le rez-de-chaussée, surtout le vendredi et samedi soir. L'étage fonctionne sans réservation — premier arrivé, premier servi.</p></div>
+      </div>
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <div class="faq-q"><h3>Y a-t-il un parking ?</h3><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Oui, un parking gratuit est disponible à proximité immédiate du Terrier. Pas de stress de stationnement — on est en semi-rural, pas en centre-ville.</p></div>
+      </div>
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <div class="faq-q"><h3>Le Terrier est-il accessible PMR ?</h3><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Le rez-de-chaussée est accessible aux personnes à mobilité réduite. L'étage est accessible par escalier uniquement. N'hésitez pas à nous contacter pour toute question d'accessibilité.</p></div>
+      </div>
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <div class="faq-q"><h3>Les animaux sont-ils acceptés ?</h3><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Les petits chiens calmes sont les bienvenus au rez-de-chaussée. Merci de nous prévenir lors de la réservation.</p></div>
+      </div>
+      <!-- FAQ 5 -->
+      <div class="faq-item">
+        <div class="faq-q"><h3>Peut-on venir en groupe ?</h3><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Absolument ! Pour les groupes de plus de 6 personnes, nous vous conseillons de réserver pour organiser au mieux votre soirée. Au-delà de 15 personnes, consultez nos offres de privatisation.</p></div>
+      </div>
+      <!-- FAQ 6 -->
+      <div class="faq-item">
+        <div class="faq-q"><h3>Proposez-vous des options végétariennes ?</h3><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Oui, plusieurs tapas sont végétariennes : burrata & pistache, champignons à la plancha, verrines gaspacho & chèvre, olives & amandes, et la planche de fromages. N'hésitez pas à nous signaler vos allergies ou régimes.</p></div>
+      </div>
+      <!-- FAQ 7 -->
+      <div class="faq-item">
+        <div class="faq-q"><h3>Quel est le moyen de paiement accepté ?</h3><span class="faq-toggle">+</span></div>
+        <div class="faq-a"><p>Nous acceptons les cartes bancaires (Visa, Mastercard, sans minimum) et les espèces. Le paiement mobile (Apple Pay, Google Pay) est également accepté.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ft-brand">Le Terrier</div>
+  <div class="ft-links">
+    <a href="index.html">Accueil</a>
+    <a href="concept.html">Le Concept</a>
+    <a href="carte.html">La Carte</a>
+    <a href="evenements.html">Événements</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="ft-links" style="margin-top:.5rem">
+    <a href="#" target="_blank" rel="noopener">Instagram</a>
+    <a href="#" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <div class="ft-legal">
+    L'abus d'alcool est dangereux pour la santé, à consommer avec modération.<br>
+    Tous nos produits peuvent contenir des allergènes. N'hésitez pas à nous consulter.
+  </div>
+</footer>
+
+<div class="float" id="floatCta"><a href="#contactForm">Réserver</a></div>
+<script src="js/shared.js"></script>
+
+<script>
+/* FAQ Accordion */
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    // Open clicked (if wasn't open)
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+/* Form submission (client-side demo) */
+const form = document.getElementById('contactForm');
+const success = document.getElementById('formSuccess');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  /* TODO: Connecter à un backend (Formspree, Netlify Forms, etc.)
+     Exemple Netlify: ajouter netlify à la balise <form>
+     Exemple Formspree: changer action="https://formspree.io/f/VOTRE_ID" method="POST" */
+  form.style.display = 'none';
+  success.classList.add('show');
+  success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});
+</script>
+</body>
+</html>

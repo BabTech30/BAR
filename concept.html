@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Le Terrier — Notre concept : un speakeasy méditerranéen entre garrigue et Camargue. L'histoire de Bastien & Franck, deux espaces, un repaire.">
+<meta name="theme-color" content="#120205">
+<title>Le Concept — Le Terrier · Bar à Cocktails & Tapas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Josefin+Sans:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+/* ════ PAGE-SPECIFIC: CONCEPT ════ */
+
+.story-body { max-width: 620px; margin: 0 auto; text-align: center; }
+.story-body p {
+  font-family: var(--font-body); font-size: 1.15rem; font-weight: 300;
+  line-height: 2.05; color: var(--creme-70); margin-bottom: 1.4rem;
+}
+.story-q {
+  margin-top: 2.5rem; padding: 2rem 0;
+  border-top: 1px solid var(--or-line); border-bottom: 1px solid var(--or-line);
+  position: relative;
+}
+.story-q::before, .story-q::after {
+  content: ''; position: absolute; width: 12px; height: 12px;
+  border: 1px solid var(--or-005); transform: rotate(45deg);
+}
+.story-q::before { top: -7px; left: 50%; margin-left: -6px; }
+.story-q::after { bottom: -7px; left: 50%; margin-left: -6px; }
+.story-q p {
+  font-family: var(--font-body); font-size: 1.08rem; font-weight: 400;
+  font-style: italic; color: var(--or-light); line-height: 1.9; margin: 0;
+}
+.story-who {
+  font-family: var(--font-ui); font-size: .55rem; letter-spacing: .35em;
+  text-transform: uppercase; color: var(--creme-20); margin-top: 1.2rem;
+}
+
+/* ── Espaces détaillés ── */
+.espace-detail {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 1rem;
+}
+.espace-block {
+  padding: 3.5rem 2.8rem; border: 1px solid var(--or-glow);
+  position: relative; overflow: hidden;
+}
+.espace-block::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(200,164,92,.02), transparent);
+  pointer-events: none;
+}
+.espace-ico {
+  font-size: 1.8rem; margin-bottom: 1.2rem; display: block; opacity: .7;
+}
+.espace-block h3 {
+  font-family: var(--font-display); font-size: 1.4rem; font-weight: 600;
+  color: var(--or); margin-bottom: .4rem;
+}
+.espace-block .espace-subtitle {
+  font-family: var(--font-ui); font-size: .48rem; letter-spacing: .4em;
+  text-transform: uppercase; color: var(--creme-20); margin-bottom: 1.2rem;
+}
+.espace-block p {
+  font-family: var(--font-body); font-size: .98rem; font-weight: 300;
+  color: var(--creme-70); line-height: 1.9; margin-bottom: 1rem;
+}
+.espace-block em {
+  font-family: var(--font-body); font-size: .9rem; font-style: italic;
+  color: var(--or-light);
+}
+
+.espace-features {
+  margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: .5rem;
+}
+.espace-feat {
+  font-family: var(--font-ui); font-size: .44rem; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--or); padding: .3rem .8rem;
+  border: 1px solid var(--or-line);
+}
+
+@media (max-width: 700px) {
+  .espace-detail { grid-template-columns: 1fr; }
+  .espace-block { padding: 2.5rem 1.5rem; }
+}
+
+/* ── Terroir grid ── */
+.terroir-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+}
+.terroir-item {
+  padding: 2.3rem 1.5rem; text-align: center;
+  border: 1px solid var(--creme-05);
+  transition: all .4s var(--ease-out);
+}
+.terroir-item:hover { border-color: var(--or-line); }
+.terroir-item h3 {
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 600;
+  color: var(--or); margin-bottom: .6rem;
+}
+.terroir-item p {
+  font-family: var(--font-body); font-size: .88rem; font-weight: 300;
+  color: var(--creme-40); line-height: 1.7;
+}
+.terroir-ico { font-size: 1.3rem; margin-bottom: .7rem; opacity: .7; }
+
+@media (max-width: 700px) {
+  .terroir-grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="atmosphere"></canvas>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement" id="announcement">
+  <p>Ouverture prochainement — Suivez-nous sur <a href="#">Instagram</a> pour la date</p>
+  <button class="ann-close" id="annClose" aria-label="Fermer">✕</button>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="n-brand">Le Terrier</a>
+  <ul class="n-links" id="menu">
+    <li><a href="concept.html" class="active">Le Concept</a></li>
+    <li><a href="carte.html">La Carte</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="galerie.html">Galerie</a></li>
+    <li><a href="contact.html" class="n-cta">Réserver</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <p class="h-pre">L'esprit du lieu</p>
+  <h1 class="h-title">Le Concept</h1>
+  <div class="h-deco"><span class="h-deco-l"></span><span class="h-deco-d"></span><span class="h-deco-r"></span></div>
+  <p class="h-tag">Un repaire caché entre garrigues et Camargue</p>
+</section>
+
+<!-- NOTRE HISTOIRE -->
+<section class="s" style="background:linear-gradient(var(--void),var(--bordeaux-dark),var(--void))">
+  <div class="s-in">
+    <div class="s-eye" data-r>Genèse</div>
+    <h2 class="s-h" data-r="1">Notre Histoire</h2>
+    <div class="sep" data-r="2"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+    <div class="story-body" data-r="3">
+      <p>Bastien est artisan. Franck est hôtelier. Ils se connaissent depuis des années, partagent le goût des belles choses, des soirées qui s'étirent, des verres qu'on prend le temps de savourer.</p>
+      <p>Le Terrier est né de cette amitié. Un projet qui n'a pas été pensé dans un bureau, mais autour d'une table — à imaginer le lieu idéal, celui qu'ils auraient toujours voulu trouver en poussant la porte d'un bar.</p>
+      <p>Le résultat : un repaire à quelques minutes de Nîmes, entre vignobles et garrigues. Un endroit qu'on se confie à l'oreille, comme une bonne adresse qu'on garde pour soi — avant de la partager quand même.</p>
+      <div class="story-q">
+        <p>Un artisan et un hôtelier, une amitié née du partage, un repaire à leur image — authentique, chaleureux, sans compromis.</p>
+        <div class="story-who">Bastien & Franck · Fondateurs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOS ESPACES -->
+<section class="s" style="background:var(--void)">
+  <div class="s-in">
+    <div class="s-eye" data-r>Deux atmosphères</div>
+    <h2 class="s-h" data-r="1">Nos Espaces</h2>
+    <p class="s-sub" data-r="2">Deux étages, deux ambiances, un même souci du bien-faire</p>
+    <div class="sep" data-r="2"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+
+    <div class="espace-detail" data-r="3">
+      <!-- RDC -->
+      <div class="espace-block">
+        <div class="espace-ico">🍽</div>
+        <h3>Le Rez-de-Chaussée</h3>
+        <div class="espace-subtitle">Standing & Finesse</div>
+        <p>L'espace restaurant du Terrier. Ici, on s'installe pour la soirée. Les formules défilent, les tapas signatures arrivent avec soin, les cocktails sont servis dans les règles de l'art.</p>
+        <p>L'ambiance est feutrée, la lumière tamisée, le service attentif. C'est l'endroit idéal pour un dîner en amoureux, un anniversaire, ou simplement une soirée où l'on prend le temps.</p>
+        <em>Réservation conseillée, surtout le week-end.</em>
+        <div class="espace-features">
+          <span class="espace-feat">25 places</span>
+          <span class="espace-feat">Formules & tapas</span>
+          <span class="espace-feat">Service à table</span>
+          <span class="espace-feat">Ambiance intimiste</span>
+        </div>
+      </div>
+      <!-- ÉTAGE -->
+      <div class="espace-block">
+        <div class="espace-ico">🍸</div>
+        <h3>L'Étage</h3>
+        <div class="espace-subtitle">Convivialité & Partage</div>
+        <p>On monte l'escalier et l'ambiance change. Le bar, le comptoir, les canapés — ici c'est plus libre, plus spontané. On vient entre amis, on commande au bar, on partage des tapas et des cocktails.</p>
+        <p>L'étage, c'est le cœur vivant du Terrier. L'endroit où l'on reste un peu plus tard, où l'on refait le monde entre deux Spritz des Garrigues. Pas besoin de réserver — il suffit de pousser la porte.</p>
+        <em>Accès libre, sans réservation.</em>
+        <div class="espace-features">
+          <span class="espace-feat">35 places</span>
+          <span class="espace-feat">Bar & comptoir</span>
+          <span class="espace-feat">Cocktails & vins</span>
+          <span class="espace-feat">Ambiance décontractée</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANCRAGE LOCAL -->
+<section class="s" style="background:linear-gradient(var(--void),var(--bordeaux-dark),var(--void))">
+  <div class="s-in">
+    <div class="s-eye" data-r>Racines</div>
+    <h2 class="s-h" data-r="1">L'Ancrage Local</h2>
+    <p class="s-sub" data-r="2">Le terroir du Sud dans chaque verre, chaque assiette</p>
+    <div class="sep" data-r="2"><span class="l"></span><span class="d"></span><span class="l"></span></div>
+
+    <div class="terroir-grid" data-r="3">
+      <div class="terroir-item">
+        <div class="terroir-ico">🌿</div>
+        <h3>La Garrigue</h3>
+        <p>Thym, romarin, miel de garrigue, lavande — les saveurs du Sud infusent nos cocktails et nos plats. C'est le fil rouge du Terrier.</p>
+      </div>
+      <div class="terroir-item">
+        <div class="terroir-ico">🍷</div>
+        <h3>Les Vins du Coin</h3>
+        <p>Costières de Nîmes, Pic Saint-Loup, Tavel, Picpoul de Pinet — notre carte des vins est un voyage dans les coteaux d'à côté.</p>
+      </div>
+      <div class="terroir-item">
+        <div class="terroir-ico">🫒</div>
+        <h3>La Méditerranée</h3>
+        <p>Espagne pour les tapas et l'ibérique, Provence pour les herbes, Camargue pour le sel — notre cuisine croise les inspirations du bassin méditerranéen.</p>
+      </div>
+      <div class="terroir-item">
+        <div class="terroir-ico">🧂</div>
+        <h3>Sel de Camargue</h3>
+        <p>La fleur de sel des salins voisins assaisonne nos Paloma Rosée et relève nos tapas avec la douceur du Sud.</p>
+      </div>
+      <div class="terroir-item">
+        <div class="terroir-ico">🫕</div>
+        <h3>Producteurs Locaux</h3>
+        <p>Brandade de Nîmes, olives cassées, safran des Cévennes — des produits nobles, sourcés au plus près, travaillés avec respect.</p>
+      </div>
+      <div class="terroir-item">
+        <div class="terroir-ico">✨</div>
+        <h3>L'Esprit Speakeasy</h3>
+        <p>L'intimité d'un lieu caché, l'élégance Art Déco, le plaisir d'une adresse qu'on se confie entre amis. Le Terrier, c'est un secret bien gardé.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="s" style="background:var(--void);padding:5rem 2rem;text-align:center">
+  <div class="s-in" data-r>
+    <p style="font-family:var(--font-body);font-size:1.2rem;font-weight:300;font-style:italic;color:var(--creme-40);margin-bottom:2rem;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.8">Curieux de découvrir ce qui vous attend ?</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="carte.html" class="btn">Voir la carte</a>
+      <a href="contact.html" class="btn btn-ghost">Réserver une table</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ft-brand">Le Terrier</div>
+  <div class="ft-links">
+    <a href="index.html">Accueil</a>
+    <a href="concept.html">Le Concept</a>
+    <a href="carte.html">La Carte</a>
+    <a href="evenements.html">Événements</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="ft-links" style="margin-top:.5rem">
+    <a href="#" target="_blank" rel="noopener">Instagram</a>
+    <a href="#" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <div class="ft-legal">
+    L'abus d'alcool est dangereux pour la santé, à consommer avec modération.<br>
+    Tous nos produits peuvent contenir des allergènes. N'hésitez pas à nous consulter.
+  </div>
+</footer>
+
+<div class="float" id="floatCta"><a href="contact.html">Réserver</a></div>
+<script src="js/shared.js"></script>
+</body>
+</html>

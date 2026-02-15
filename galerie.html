@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Galerie photo du Terrier — Ambiance speakeasy, cocktails, tapas et soirées. Découvrez notre bar à cocktails & tapas en images.">
+<meta name="theme-color" content="#120205">
+<title>Galerie — Le Terrier · Bar à Cocktails & Tapas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Josefin+Sans:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+
+<style>
+/* ════ PAGE-SPECIFIC: GALERIE ════ */
+
+/* ── Photo Grid ── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+.gallery-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+.gallery-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
+.gallery-item.tall { grid-row: span 2; aspect-ratio: 1/2; }
+
+/* Placeholder styling (remplacer par de vraies photos) */
+.gallery-item .gal-placeholder {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--bordeaux-dark);
+  border: 1px solid var(--creme-05);
+  transition: all .5s var(--ease-out);
+}
+.gallery-item:hover .gal-placeholder {
+  background: var(--bordeaux);
+  border-color: var(--or-line);
+}
+.gal-placeholder-ico {
+  font-size: 1.8rem; margin-bottom: .6rem; opacity: .5;
+  transition: opacity .4s;
+}
+.gallery-item:hover .gal-placeholder-ico { opacity: .8; }
+.gal-placeholder-label {
+  font-family: var(--font-ui); font-size: .45rem; letter-spacing: .25em;
+  text-transform: uppercase; color: var(--creme-20);
+  transition: color .4s;
+}
+.gallery-item:hover .gal-placeholder-label { color: var(--or); }
+
+/* Real images (quand tu auras les photos) */
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s var(--ease-out), filter .5s;
+  filter: brightness(.85) saturate(.9);
+}
+.gallery-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(1) saturate(1);
+}
+.gallery-item .gal-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(transparent 50%, rgba(18,2,5,.7));
+  opacity: 0; transition: opacity .4s;
+  display: flex; align-items: flex-end; padding: 1rem;
+}
+.gallery-item:hover .gal-overlay { opacity: 1; }
+.gal-overlay span {
+  font-family: var(--font-ui); font-size: .45rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--or);
+}
+
+@media (max-width: 600px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item.wide { grid-column: span 2; }
+  .gallery-item.tall { grid-row: span 1; aspect-ratio: 1; }
+}
+
+/* ── Lightbox ── */
+.lightbox {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,.95);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .4s var(--ease-out);
+}
+.lightbox.active { opacity: 1; pointer-events: all; }
+.lightbox-close {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  font-family: var(--font-ui); font-size: 1.2rem; color: var(--creme-40);
+  background: none; border: none; cursor: pointer;
+  transition: color .3s;
+}
+.lightbox-close:hover { color: var(--or); }
+.lightbox-content {
+  max-width: 90vw; max-height: 85vh;
+  text-align: center;
+}
+.lightbox-content img {
+  max-width: 100%; max-height: 80vh; object-fit: contain;
+}
+.lightbox-caption {
+  font-family: var(--font-body); font-size: .9rem; font-weight: 300;
+  font-style: italic; color: var(--creme-40); margin-top: 1rem;
+}
+
+/* ── Instagram CTA ── */
+.insta-cta {
+  text-align: center; padding: 4rem 2rem;
+  border-top: 1px solid var(--or-line);
+}
+.insta-cta p {
+  font-family: var(--font-body); font-size: 1.1rem; font-weight: 300;
+  font-style: italic; color: var(--creme-40); margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<canvas id="atmosphere"></canvas>
+
+<div class="announcement" id="announcement">
+  <p>Ouverture prochainement — Suivez-nous sur <a href="#">Instagram</a> pour la date</p>
+  <button class="ann-close" id="annClose" aria-label="Fermer">✕</button>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="n-brand">Le Terrier</a>
+  <ul class="n-links" id="menu">
+    <li><a href="concept.html">Le Concept</a></li>
+    <li><a href="carte.html">La Carte</a></li>
+    <li><a href="evenements.html">Événements</a></li>
+    <li><a href="galerie.html" class="active">Galerie</a></li>
+    <li><a href="contact.html" class="n-cta">Réserver</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <p class="h-pre">En images</p>
+  <h1 class="h-title">Galerie</h1>
+  <div class="h-deco"><span class="h-deco-l"></span><span class="h-deco-d"></span><span class="h-deco-r"></span></div>
+  <p class="h-tag">L'ambiance du Terrier en quelques clichés</p>
+</section>
+
+<!-- GALERIE PHOTOS
+     ══════════════════════
+     POUR AJOUTER UNE VRAIE PHOTO :
+     1. Remplacer le <div class="gal-placeholder">...</div>
+        par : <img src="images/nom-photo.jpg" alt="Description" loading="lazy">
+              <div class="gal-overlay"><span>Légende</span></div>
+     2. Optimiser les images (max 1200px large, WebP si possible)
+     3. Classes spéciales : "wide" (2 colonnes), "tall" (2 lignes)
+     ══════════════════════ -->
+<section class="s" style="background:var(--void);padding-top:2rem">
+  <div class="s-in" style="max-width:1100px">
+    <div class="gallery-grid" data-r>
+      <!-- Ligne 1 -->
+      <div class="gallery-item wide" data-caption="L'ambiance du rez-de-chaussée">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🍸</span><span class="gal-placeholder-label">Ambiance RDC</span></div>
+      </div>
+      <div class="gallery-item" data-caption="Cocktail signature : Le Terrier">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🌿</span><span class="gal-placeholder-label">Le Terrier</span></div>
+      </div>
+
+      <!-- Ligne 2 -->
+      <div class="gallery-item" data-caption="Croquetas au jambon ibérique">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🧆</span><span class="gal-placeholder-label">Croquetas</span></div>
+      </div>
+      <div class="gallery-item" data-caption="Détail déco Art Déco">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">✨</span><span class="gal-placeholder-label">Déco</span></div>
+      </div>
+      <div class="gallery-item" data-caption="L'Embuscade — mezcal & pamplemousse">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🔥</span><span class="gal-placeholder-label">L'Embuscade</span></div>
+      </div>
+
+      <!-- Ligne 3 -->
+      <div class="gallery-item" data-caption="Le bar de l'étage">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🪑</span><span class="gal-placeholder-label">L'Étage</span></div>
+      </div>
+      <div class="gallery-item wide" data-caption="Planche Ibérique Grand Cru">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🫒</span><span class="gal-placeholder-label">Planche Ibérique</span></div>
+      </div>
+
+      <!-- Ligne 4 -->
+      <div class="gallery-item" data-caption="Poulpe grillé, grenailles confites">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🐙</span><span class="gal-placeholder-label">Poulpe Grillé</span></div>
+      </div>
+      <div class="gallery-item" data-caption="Soirée jazz au Terrier">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🎵</span><span class="gal-placeholder-label">Jazz Live</span></div>
+      </div>
+      <div class="gallery-item" data-caption="Nuit Fauve — rhum, passion, coco">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🥥</span><span class="gal-placeholder-label">Nuit Fauve</span></div>
+      </div>
+
+      <!-- Ligne 5 -->
+      <div class="gallery-item wide" data-caption="La Grande Tablée à partager">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🍽</span><span class="gal-placeholder-label">La Grande Tablée</span></div>
+      </div>
+      <div class="gallery-item" data-caption="Vue extérieure du Terrier">
+        <div class="gal-placeholder"><span class="gal-placeholder-ico">🏠</span><span class="gal-placeholder-label">Le Lieu</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM CTA -->
+<section class="s" style="background:var(--void);padding-top:0">
+  <div class="s-in">
+    <div class="insta-cta" data-r>
+      <p>Pour plus de photos et de coulisses, retrouvez-nous sur Instagram</p>
+      <a href="#" class="btn" target="_blank" rel="noopener">@leterrier.bar</a>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">✕</button>
+  <div class="lightbox-content">
+    <div class="lightbox-caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ft-brand">Le Terrier</div>
+  <div class="ft-links">
+    <a href="index.html">Accueil</a>
+    <a href="concept.html">Le Concept</a>
+    <a href="carte.html">La Carte</a>
+    <a href="evenements.html">Événements</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="ft-links" style="margin-top:.5rem">
+    <a href="#" target="_blank" rel="noopener">Instagram</a>
+    <a href="#" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <div class="ft-legal">
+    L'abus d'alcool est dangereux pour la santé, à consommer avec modération.<br>
+    Tous nos produits peuvent contenir des allergènes. N'hésitez pas à nous consulter.
+  </div>
+</footer>
+
+<div class="float" id="floatCta"><a href="contact.html">Réserver</a></div>
+<script src="js/shared.js"></script>
+
+<script>
+/* Lightbox */
+const lb = document.getElementById('lightbox');
+const lbCaption = document.getElementById('lbCaption');
+const lbClose = document.getElementById('lbClose');
+
+document.querySelectorAll('.gallery-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const caption = item.dataset.caption || '';
+    lbCaption.textContent = caption;
+    lb.classList.add('active');
+  });
+});
+
+lbClose.addEventListener('click', () => lb.classList.remove('active'));
+lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('active'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('active'); });
+</script>
+</body>
+</html>
